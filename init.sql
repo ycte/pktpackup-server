@@ -1,3 +1,4 @@
+---TODO: 废弃，使用 nest 自动生成
 create database test;
 use test;
 create table User (
@@ -29,3 +30,10 @@ values('22920202208888', 'john', 'changeme', '计算机学院', '李小行',
 '13800000', '厦门市翔安区', true);
 insert into User (id, firstName, lastName, isActive) 
 values ('529007', 'Yun', 'Xiaoxi', true);
+
+insert into pkg(userId, content, state) 
+    values('22920202208888', '22920202208888-1', '已签收');
+insert into pkg(userId, content, state)
+    values('22920202208888', '22920202208888-2', '运输中');
+insert into pkg(userId, content, state)
+    values('22920202208888', '22920202208888-3', '未开始');
