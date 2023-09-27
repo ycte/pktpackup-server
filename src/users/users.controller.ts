@@ -7,6 +7,7 @@ export class UsersController {
   
   @Get('me')
   async getMe(@Request() req) {
+    // console.log(req.user);
     return this.usersService.getMe(req.user);
   }
 }
