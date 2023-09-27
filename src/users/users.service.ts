@@ -28,7 +28,7 @@ export class UsersService {
   async getMe(@Request() req): Promise<users | undefined> {
     let { password, id, ...res } = await this.usersRepository.findOneBy({ userId: req.sub });
     console.log(res);
-
+    
     return res;
   }
 }
