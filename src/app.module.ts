@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './user.entity';
+import { Users } from './users/users.entity';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
@@ -15,7 +15,7 @@ import { UsersModule } from './users/users.module';
       username: 'root',
       password: 'jsersavetheworld',
       database: 'test',
-      entities: [User],
+      entities: [Users],
       synchronize: true,
     }),
     AuthModule,
