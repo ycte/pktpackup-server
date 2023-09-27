@@ -25,5 +25,9 @@ export class AuthService {
       access_token: await this.jwtService.signAsync(payload),
     };
   }
+  // TODO: expire jwt to logout
+  async logout(): Promise<any> {
+    // this.jwtService.
+  }
 }
 

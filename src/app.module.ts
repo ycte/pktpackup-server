@@ -5,6 +5,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { PkgModule } from './pkg/pkg.module';
+import { PkgstateModule } from './pkgstate/pkgstate.module';
+import { Pkg } from './pkg/pkg.entity';
+import { PkgState } from './pkgstate/pkgstate.eneity';
 
 @Module({
   imports: [
@@ -15,11 +19,13 @@ import { UsersModule } from './users/users.module';
       username: 'root',
       password: 'jsersavetheworld',
       database: 'test',
-      entities: [Users],
+      entities: [Users, Pkg, PkgState],
       synchronize: true,
     }),
     AuthModule,
     UsersModule,
+    PkgModule,
+    PkgstateModule,
   ],
   controllers: [AppController],
   providers: [AppService],
