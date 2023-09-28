@@ -13,7 +13,7 @@ export class PkgState {
   id: number
 
   @PrimaryColumn()
-  pkgId: number
+  pkgId: string
 
   @PrimaryColumn({
     length: 20,
