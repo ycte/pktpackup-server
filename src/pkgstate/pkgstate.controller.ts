@@ -20,10 +20,11 @@ export class PkgstateController {
     return res;
   }
 
-  // @Post('alter')
-  // async alter(@Body() body: any, @Request() req: any){
-  //   let res = await this.pkgstateService.alter(body., req.user);
-  //   return res;
-  // }
+  @Post('alter')
+  async alter(@Body() body: any, @Request() req: any) {
+    let res = await this.pkgstateService
+      .alter(body.pkgId, body.state, body.reason, req.user);
+    return res;
+  }
 
 }
