@@ -19,7 +19,7 @@ export class PkgService {
     let res = await this.pkgRepository.find({
       where: [{ userId: user.userId }],
     });
-    console.log('getmypkg:', res);
+    // console.log('getmypkg:', res);
     return res;
   }
 }

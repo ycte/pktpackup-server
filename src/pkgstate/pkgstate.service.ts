@@ -15,19 +15,19 @@ export class PkgstateService {
     @InjectRepository(Users)
     private readonly usersRepository: Repository<Users>,
   ) { }
-  
+
   async create(content: string, @Request() req)
     : Promise<PkgState | undefined> {
     const user = await this.usersRepository
       .findOneBy({ userId: req.sub });
-    
+
     var pkg = new Pkg();
     const pkgCnt = await this.pkgRepository.countBy({ userId: req.sub });
     pkg.userId = req.sub;
     pkg.pkgId = `${req.sub}-${pkgCnt + 1}`;
     pkg.state = PkgStateEnum.init;
     pkg.content = content;
-    // console.log(pkg)
+    // console.log('pkgstate-create-pkg:', pkg)
     const pkgRes = await this.pkgRepository.save(pkg);
 
     const pkgstate = new PkgState();
@@ -35,18 +35,31 @@ export class PkgstateService {
     pkgstate.state = PkgStateEnum.init;
     pkgstate.userId = req.sub;
     pkgstate.reason = content;
-    pkgstate.time= new Date();
+    pkgstate.time = new Date();
     return await this.pkgstateRepository.save(pkgstate);
     // return undefined;
   }
 
   async alter
-  (pkgId: string, state: PkgStateEnum, reason: string, @Request() req)
+    (pkgId: string, stateStr: string, reason: string, @Request() req)
     : Promise<PkgState | undefined> {
+
     const pkg = await this.pkgRepository
       .findOneBy({ pkgId: pkgId });
+    var state;
+    if (PkgStateEnum[stateStr]) {
+      state = PkgStateEnum[stateStr];
+    } else {
+      state = pkg.state;
+    }
+
+    if (state !== pkg.state) {
+      pkg.state = state;
+      let chgPkg = await this.pkgRepository.save(pkg);
+      // console.log('pkgstate-alter-chgpkg:', chgPkg);
+    }
     if (pkg) {
-      const pkgstate = new PkgState();
+      var pkgstate = new PkgState();
       pkgstate.pkgId = pkgId;
       pkgstate.state = state;
       pkgstate.reason = reason;
