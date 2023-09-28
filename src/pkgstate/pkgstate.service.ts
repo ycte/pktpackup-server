@@ -39,4 +39,29 @@ export class PkgstateService {
     return await this.pkgstateRepository.save(pkgstate);
     // return undefined;
   }
+
+  async alter
+  (pkgId: string, state: PkgStateEnum, reason: string, @Request() req)
+    : Promise<PkgState | undefined> {
+    const pkg = await this.pkgRepository
+      .findOneBy({ pkgId: pkgId });
+    if (pkg) {
+      const pkgstate = new PkgState();
+      pkgstate.pkgId = pkgId;
+      pkgstate.state = state;
+      pkgstate.reason = reason;
+      pkgstate.time = new Date();
+      pkgstate.userId = req.sub;
+      return await this.pkgstateRepository.save(pkgstate);
+    }
+    return undefined;
+  }
+
+  async getState(pkgId: string) {
+    return await this.pkgstateRepository.find({
+      where: {
+        pkgId: pkgId,
+      },
+    });
+  }
 }
